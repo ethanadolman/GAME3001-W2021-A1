@@ -18,7 +18,7 @@ PlayScene::~PlayScene()
 
 void PlayScene::draw()
 {
-	Util::DrawLine(m_pSpaceShip->getTransform()->position, (m_pSpaceShip->getTransform()->position + m_pSpaceShip->getOrientation() * 100.0f));
+	//Util::DrawLine(m_pSpaceShip->getTransform()->position, (m_pSpaceShip->getTransform()->position + m_pSpaceShip->getOrientation() * 100.0f));
 	if(EventManager::Instance().isIMGUIActive())
 	{
 		GUI_Function();
@@ -74,6 +74,7 @@ void PlayScene::handleEvents()
 	}
 	if(EventManager::Instance().isKeyDown(SDL_SCANCODE_4) && (m_pSpaceShip->getAI() != AI::IDLE || m_pSpaceShip->getAI() != AI::AVOIDING))
 	{
+		SoundManager::Instance().playSound("thunder", 0);
 		m_pObstacle->setEnabled(true);
 		m_pSpaceShip->setAI(AI::IDLE);
 		std::cout << "Avoiding\n";
@@ -87,6 +88,7 @@ void PlayScene::handleEvents()
 	}
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_3) && m_pSpaceShip->getAI() != AI::ARRIVING)
 	{
+		SoundManager::Instance().playSound("thunder", 0);
 		m_pObstacle->setEnabled(false);
 		m_pSpaceShip->setAI(AI::ARRIVING);
 		std::cout << "Arriving\n";
@@ -100,6 +102,7 @@ void PlayScene::handleEvents()
 	}
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_2) && m_pSpaceShip->getAI() != AI::FLEEING)
 	{
+		SoundManager::Instance().playSound("thunder", 0);
 		m_pObstacle->setEnabled(false);
 		m_pSpaceShip->setAI(AI::FLEEING);
 		std::cout << "Fleeing\n";
@@ -113,6 +116,7 @@ void PlayScene::handleEvents()
 	}
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_1) && m_pSpaceShip->getAI() != AI::SEEKING)
 	{
+		SoundManager::Instance().playSound("thunder", 0);
 		m_pObstacle->setEnabled(false);
 		m_pSpaceShip->setAI(AI::SEEKING);
 		std::cout << "Seeking\n";
@@ -152,6 +156,7 @@ void PlayScene::start()
 	else { m_pObstacle->setEnabled(true); };
 
 	SoundManager::Instance().load("../Assets/audio/racetomars.mp3", "rtm", SOUND_MUSIC);
+	SoundManager::Instance().load("../Assets/audio/thunder.ogg", "thunder",	SOUND_SFX);
 	SoundManager::Instance().setMusicVolume(64);
 	SoundManager::Instance().playMusic("rtm", -1);
 }
