@@ -177,8 +177,44 @@ int CollisionManager::minSquaredDistanceLineLine(glm::vec2 line1_start, glm::vec
 	auto norm = Util::dot(dP, dP);
 	return norm;
 }
+bool CollisionManager::lineAABBCheckL(SpaceShip* object1, GameObject* object2)
+{
+	const auto lineStart = object1->getTransform()->position;
+	
+		const auto offset = -135.0f;
+	const auto angle_in_radians = (object1->getRotation() + offset) * Util::Deg2Rad;
 
-bool CollisionManager::lineAABBCheck(SpaceShip* object1, GameObject* object2)
+	const auto x = cos(angle_in_radians);
+	const auto y = sin(angle_in_radians);
+	
+	const auto lineEnd = object1->getTransform()->position + glm::vec2(x, y) * 100.0f;
+	// aabb
+	const auto boxWidth = object2->getWidth();
+	const int halfBoxWidth = boxWidth * 0.5f;
+	const auto boxHeight = object2->getHeight();
+	const int halfBoxHeight = boxHeight * 0.5f;
+	const auto boxStart = object2->getTransform()->position - glm::vec2(halfBoxWidth, halfBoxHeight);
+
+	if (lineRectCheck(lineStart, lineEnd, boxStart, boxWidth, boxHeight))
+	{
+		switch (object2->getType()) {
+		case OBSTACLE:
+			std::cout << "Collision with Obstacle!" << std::endl;
+			SoundManager::Instance().playSound("thunder", 0);
+
+			break;
+		default:
+
+			break;
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+bool CollisionManager::lineAABBCheckM(SpaceShip* object1, GameObject* object2)
 {
 	const auto lineStart = object1->getTransform()->position;
 	const auto lineEnd = object1->getTransform()->position + object1->getOrientation() * 100.0f;
@@ -192,9 +228,9 @@ bool CollisionManager::lineAABBCheck(SpaceShip* object1, GameObject* object2)
 	if (lineRectCheck(lineStart, lineEnd, boxStart, boxWidth, boxHeight))
 	{
 		switch (object2->getType()) {
-		case TARGET:
+		case OBSTACLE:
 			std::cout << "Collision with Obstacle!" << std::endl;
-			SoundManager::Instance().playSound("yay", 0);
+			SoundManager::Instance().playSound("thunder", 0);
 
 			break;
 		default:
@@ -208,6 +244,42 @@ bool CollisionManager::lineAABBCheck(SpaceShip* object1, GameObject* object2)
 	return false;
 }
 
+bool CollisionManager::lineAABBCheckR(SpaceShip* object1, GameObject* object2)
+{
+	const auto lineStart = object1->getTransform()->position;
+
+	const auto offset = -45.0f;
+	const auto angle_in_radians = (object1->getRotation() + offset) * Util::Deg2Rad;
+
+	const auto x = cos(angle_in_radians);
+	const auto y = sin(angle_in_radians);
+
+	const auto lineEnd = object1->getTransform()->position + glm::vec2(x, y) * 100.0f;
+	// aabb
+	const auto boxWidth = object2->getWidth();
+	const int halfBoxWidth = boxWidth * 0.5f;
+	const auto boxHeight = object2->getHeight();
+	const int halfBoxHeight = boxHeight * 0.5f;
+	const auto boxStart = object2->getTransform()->position - glm::vec2(halfBoxWidth, halfBoxHeight);
+
+	if (lineRectCheck(lineStart, lineEnd, boxStart, boxWidth, boxHeight))
+	{
+		switch (object2->getType()) {
+		case OBSTACLE:
+			std::cout << "Collision with Obstacle!" << std::endl;
+			SoundManager::Instance().playSound("thunder", 0);
+
+			break;
+		default:
+
+			break;
+		}
+
+		return true;
+	}
+
+	return false;
+}
 int CollisionManager::circleAABBsquaredDistance(const glm::vec2 circle_centre, int circle_radius, const glm::vec2 box_start, const int box_width, const int box_height)
 {
 	auto dx = std::max(box_start.x - circle_centre.x, 0.0f);

@@ -143,6 +143,7 @@ void SpaceShip::m_Move()
 		setRotation(getRotation() + getTurnRate()*2);
 		break;
 	case AI::IDLE:
+		std::cout << "idle" << std::endl;
 		m_targetDirection = getOrientation();
 		
 		break;

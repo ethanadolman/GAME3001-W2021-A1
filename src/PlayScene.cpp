@@ -35,7 +35,7 @@ void PlayScene::update()
 	if (m_pObstacle->isEnabled()) {
 		//CollisionManager::AABBCheck(m_pSpaceShip, m_pObstacle);
 		//CollisionManager::circleAABBCheck(m_pSpaceShip, m_pObstacle);
-		if (CollisionManager::lineAABBCheck(m_pSpaceShip, m_pObstacle))
+		if (CollisionManager::lineAABBCheckL(m_pSpaceShip, m_pObstacle) || CollisionManager::lineAABBCheckM(m_pSpaceShip, m_pObstacle) || CollisionManager::lineAABBCheckR(m_pSpaceShip, m_pObstacle))
 		{
 			std::cout << "line collision with obstacle!" << std::endl;
 			m_pSpaceShip->setAI(AI::AVOIDING);
@@ -43,7 +43,7 @@ void PlayScene::update()
 		}
 		else if(m_pSpaceShip->getAI() != AI::IDLE)
 		{
-			m_pSpaceShip->setAI(AI::SEEKING);
+			m_pSpaceShip->setAI(AI::IDLE);
 		}
 	}
 }
