@@ -134,7 +134,6 @@ void SpaceShip::m_Move()
 				setMaxSpeed(0.0f);
 			}
 			else {
-				std::cout << "close";
 				setMaxSpeed(5.0f * (distance / 300));
 				setTurnRate(10.0f);
 			}
