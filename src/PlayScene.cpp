@@ -43,7 +43,7 @@ void PlayScene::update()
 		}
 		else if(m_pSpaceShip->getAI() != AI::IDLE)
 		{
-			m_pSpaceShip->setAI(AI::IDLE);
+			m_pSpaceShip->setAI(AI::SEEKING);
 		}
 	}
 }

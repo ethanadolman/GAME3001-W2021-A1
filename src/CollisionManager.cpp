@@ -198,7 +198,7 @@ bool CollisionManager::lineAABBCheckL(SpaceShip* object1, GameObject* object2)
 	if (lineRectCheck(lineStart, lineEnd, boxStart, boxWidth, boxHeight))
 	{
 		switch (object2->getType()) {
-		case OBSTACLE:
+		case TARGET:
 			std::cout << "Collision with Obstacle!" << std::endl;
 			SoundManager::Instance().playSound("thunder", 0);
 
@@ -228,7 +228,7 @@ bool CollisionManager::lineAABBCheckM(SpaceShip* object1, GameObject* object2)
 	if (lineRectCheck(lineStart, lineEnd, boxStart, boxWidth, boxHeight))
 	{
 		switch (object2->getType()) {
-		case OBSTACLE:
+		case TARGET:
 			std::cout << "Collision with Obstacle!" << std::endl;
 			SoundManager::Instance().playSound("thunder", 0);
 
@@ -265,7 +265,7 @@ bool CollisionManager::lineAABBCheckR(SpaceShip* object1, GameObject* object2)
 	if (lineRectCheck(lineStart, lineEnd, boxStart, boxWidth, boxHeight))
 	{
 		switch (object2->getType()) {
-		case OBSTACLE:
+		case TARGET:
 			std::cout << "Collision with Obstacle!" << std::endl;
 			SoundManager::Instance().playSound("thunder", 0);
 
